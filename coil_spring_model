@@ -1,0 +1,34 @@
+#include <iostream>
+
+class Spring {
+private:
+    double springConstant; // Spring constant (N/m)
+    double equilibriumPosition; // Equilibrium position (m)
+
+public:
+    // Constructor
+    Spring(double k, double eqPos) : springConstant(k), equilibriumPosition(eqPos) {}
+
+    // Calculate the force applied by the spring
+    double calculateForce(double displacement) {
+        return springConstant * (displacement - equilibriumPosition);
+    }
+};
+
+int main() {
+    // Define spring parameters
+    double springConstant = 1000.0; // N/m
+    double equilibriumPosition = 0.0; // m
+
+    // Create a spring object
+    Spring spring(springConstant, equilibriumPosition);
+
+    // Test the spring simulation
+    double displacement = 0.1; // 10 cm displacement from equilibrium position
+
+    // Calculate and display the force applied by the spring
+    double force = spring.calculateForce(displacement);
+    std::cout << "Spring Force: " << force << " N\n";
+
+    return 0;
+}
