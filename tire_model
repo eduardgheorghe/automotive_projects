@@ -1,0 +1,55 @@
+#include <iostream>
+#include <cmath>
+
+class Tire {
+private:
+    double initialTreadDepth; // Initial tread depth (in mm)
+    double treadWearRate; // Rate of tread wear (in mm/km)
+
+public:
+    // Constructor
+    Tire(double initialDepth, double wearRate) : initialTreadDepth(initialDepth), treadWearRate(wearRate) {}
+
+    // Simulate tire roll over a distance and calculate remaining tread depth
+    double simulateRoll(double distance) {
+        double wornDepth = treadWearRate * (distance / 1000.0); // Convert distance to km
+        double remainingTreadDepth = std::max(0.0, initialTreadDepth - wornDepth);
+        return remainingTreadDepth;
+    }
+
+    // Calculate tire performance based on remaining tread depth
+    std::string getTirePerformance(double remainingTreadDepth) {
+        if (remainingTreadDepth >= 6.0) {
+            return "Excellent";
+        } else if (remainingTreadDepth >= 4.0) {
+            return "Good";
+        } else if (remainingTreadDepth >= 2.0) {
+            return "Fair";
+        } else {
+            return "Replace";
+        }
+    }
+};
+
+int main() {
+    // Define tire parameters
+    double initialTreadDepth = 10.0; // Initial tread depth in mm
+    double treadWearRate = 0.1; // Tread wear rate in mm/km
+
+    // Create a tire object
+    Tire tire(initialTreadDepth, treadWearRate);
+
+    // Simulate the tire roll over a distance of 5000 km
+    double distance = 5000.0; // km
+    double remainingTreadDepth = tire.simulateRoll(distance);
+
+    // Get tire performance based on remaining tread depth
+    std::string performance = tire.getTirePerformance(remainingTreadDepth);
+
+    // Display results
+    std::cout << "Initial Tread Depth: " << initialTreadDepth << " mm\n";
+    std::cout << "Remaining Tread Depth: " << remainingTreadDepth << " mm\n";
+    std::cout << "Tire Performance: " << performance << "\n";
+
+    return 0;
+}
